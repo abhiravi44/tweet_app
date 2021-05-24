@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from django.shortcuts import get_object_or_404
 from .forms import *
 from .models import *
 
@@ -37,5 +37,28 @@ def dashboard(request):
             return redirect('dashboard')
 
     form=PostForm()
-    posts=Post.objects.all()
+    posts=Post.objects.exclude(user=request.user)
     return render(request,'dashboard.html',{'form':form,'posts':posts})
+
+def follow(request,id):
+    try:
+        user=User.objects.filter(id=id)
+    except:
+        messages.error(request,'User not found !!!')
+        return redirect('dashboard')
+    follow,created=Following.objects.get_or_create(user=request.user)
+    if follow:
+        follow.following.add(*user)
+        follow.save()
+    elif created:
+        created.following.set(user)
+        created.save()
+    # print(follow)
+
+    messages.success(request,f'You started following {user}')
+    return redirect('dashboard')
+
+def profile(request,id):
+    user=get_object_or_404(User,pk=id)
+    post=Post.objects.filter(user=user)
+    return render(request,'profile.html',{'user':post})

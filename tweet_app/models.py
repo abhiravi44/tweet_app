@@ -24,4 +24,4 @@ class Following(models.Model):
     following=models.ManyToManyField(User,related_name='follow_to')
 
     def __str__(self):
-        return self.user
+        return self.user.username

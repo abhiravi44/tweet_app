@@ -1,0 +1,18 @@
+
+
+
+
+<div class="">
+  {{user.username}}
+</div>
+<div class="">
+  {% for data in user %}
+  {{data.post}
+
+  {% endfor %}
+
+</div>
+<div class="">
+  <a href="{% url 'follow' user.id %}" class="btn btn-primary">Follow</a>
+
+</div>

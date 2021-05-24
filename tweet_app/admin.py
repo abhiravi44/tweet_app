@@ -7,3 +7,4 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 admin.site.register(User,BaseUserAdmin)
 admin.site.register(Post)
+admin.site.register(Following)

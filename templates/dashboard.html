@@ -35,6 +35,7 @@
                           <th scope="row">{{forloop.counter}}</th>
                           <td> {{post.user.username}} </td>
                           <td>{{post.post}}</td>
+                          <td><a href="{% url 'follow' post.user.id %}">Follow</a></td>
 
 
 
