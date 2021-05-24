@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tweet_app',
-    'crispy_forms'
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -105,14 +105,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 AUTH_USER_MODEL = 'tweet_app.User'
-#
-# LOGOUT_URL = 'logout'
-#
-# LOGIN_URL = 'signin'
-#
-# LOGIN_REDIRECT_URL = 'dashboard'
-#
-# LOGOUT_REDIRECT_URL = '/'
+
+LOGOUT_URL = 'logout'
+
+LOGIN_URL = 'signin'
+
+LOGIN_REDIRECT_URL = 'dashboard'
+
+LOGOUT_REDIRECT_URL = '/'
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 

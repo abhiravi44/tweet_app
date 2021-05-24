@@ -15,11 +15,8 @@ def signin(request):
             # print(user)
             if user:
                 login(request, user)
-                if user.is_manager:
-                    return redirect('manager:dashboard')
-                else:
-                    return redirect('staff:dashboard')
-            # return redirect('dashboard')
+                return redirect('dashboard')
+
         else:
             messages.error(request,'Invalid credentials !!!')
             return render(request,'registration/login.html',{'form':form })
@@ -27,4 +24,18 @@ def signin(request):
         form=LoginForm()
     return render(request,'registration/login.html',{'form':form })
 
-# Create your views here.
+def dashboard(request):
+    if request.method =='POST':
+        form=PostForm(request.POST)
+        if form.is_valid():
+            form=form.save(commit=False)
+            form.user=request.user
+            form.save()
+            return redirect('dashboard')
+        else:
+            messages.error(request,form.errors)
+            return redirect('dashboard')
+
+    form=PostForm()
+    posts=Post.objects.all()
+    return render(request,'dashboard.html',{'form':form,'posts':posts})
