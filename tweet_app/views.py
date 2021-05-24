@@ -5,6 +5,11 @@ from django.shortcuts import get_object_or_404
 from .forms import *
 from .models import *
 
+from django.conf import settings
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.core.cache import cache
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 # Create your views here.
 def signin(request):
@@ -36,11 +41,13 @@ def dashboard(request):
             messages.error(request,form.errors)
             return redirect('dashboard')
 
-    form=PostForm()
+
+
     posts=Post.objects.exclude(user=request.user)
     following=Following.objects.get(user=request.user)
     follo=following.following.all()
     print(follo)
+    form=PostForm()
     return render(request,'dashboard.html',{'form':form,'posts':posts,'follo':follo})
 
 def all_users(request):
@@ -66,6 +73,12 @@ def follow(request,id):
     return redirect('dashboard')
 
 def profile(request,id):
-    user=get_object_or_404(User,pk=id)
+    if cache.get(id):
+        user=cache.get(id)
+        print("Data from cache")
+    else:
+        user=get_object_or_404(User,pk=id)
+        cache.set(id, user)
+        print("Data from DB")
     post=Post.objects.filter(user=user)
     return render(request,'profile.html',{'posts':post,'username':user})
