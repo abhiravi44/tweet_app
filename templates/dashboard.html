@@ -4,15 +4,26 @@
     <div class="" style="float:right;">
       <h3>{{user}}</h3>
       <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
-
-      <div class="">
-        {{follo.following}}
-
-      </div>
       <div class="">
         <a href="{% url 'all_users'%}" class="btn btn-primary">All users</a>
 
       </div>
+      <table>
+        <h4 class="card-title">Following</h4>
+
+        <tbody>
+
+        {% for user in follo %}
+        <tr>
+        <th scope="row">{{forloop.counter}}</th>
+
+        <td>{{user.username}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+      </table>
+
     </div>
     <form class="" action="" method="post">{% csrf_token %}
       {{ form | crispy }}

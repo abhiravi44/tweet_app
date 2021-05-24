@@ -40,6 +40,7 @@ def dashboard(request):
     posts=Post.objects.exclude(user=request.user)
     following=Following.objects.get(user=request.user)
     follo=following.following.all()
+    print(follo)
     return render(request,'dashboard.html',{'form':form,'posts':posts,'follo':follo})
 
 def all_users(request):
