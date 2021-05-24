@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 from tweet_app.models import User
 from django.utils.crypto import get_random_string
-import random 
+import random
 
 class Command(BaseCommand):
     help = 'Create random users'
@@ -13,4 +13,4 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         total = kwargs['total']
         for i in range(total):
-            User.objects.create_user(username=get_random_string(), email='', password='123456',mobile='9000100'+str(random.randint(100,999)))
+            User.objects.create_user(username='user'+get_random_string(), email='user'+get_random_string()+'@twitter.com', password='123456',mobile='9000100'+str(random.randint(100,999)))

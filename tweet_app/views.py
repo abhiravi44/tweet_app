@@ -38,7 +38,13 @@ def dashboard(request):
 
     form=PostForm()
     posts=Post.objects.exclude(user=request.user)
-    return render(request,'dashboard.html',{'form':form,'posts':posts})
+    following=Following.objects.get(user=request.user)
+    follo=following.following.all()
+    return render(request,'dashboard.html',{'form':form,'posts':posts,'follo':follo})
+
+def all_users(request):
+    users=User.objects.all()
+    return render(request,'allusers.html',{'users':users})
 
 def follow(request,id):
     try:
@@ -61,4 +67,4 @@ def follow(request,id):
 def profile(request,id):
     user=get_object_or_404(User,pk=id)
     post=Post.objects.filter(user=user)
-    return render(request,'profile.html',{'user':post})
+    return render(request,'profile.html',{'posts':post,'username':user})

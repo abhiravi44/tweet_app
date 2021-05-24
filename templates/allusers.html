@@ -1,17 +1,11 @@
-
-
-
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="">
 
-</div>
 
 <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Posts by {{username}}</h4>
+              <h4 class="card-title">All users</h4>
               <p class="card-description"><code></code></p>
               <div class="table-responsive">
                 <table class="table table-striped">
@@ -19,15 +13,17 @@
                     <tr>
                       <th> #</th>
 
-                      <th> Post </th>
+                      <th>  </th>
 
                     </tr>
                   </thead>
                   <tbody>
-                      {% for post in posts %}
+                      {% for user in users %}
                     <tr>
                       <th scope="row">{{forloop.counter}}</th>
-                      <td>{{post.post}}</td>
+                      <td>{{user.username}}</td>
+                      <td><a href="{% url 'follow' user.id %}">Follow</a></td>
+
 
 
 

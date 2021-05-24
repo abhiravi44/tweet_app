@@ -3,14 +3,27 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Tweet app</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+        form {
+        width:50%;
+        height:450px;
+        margin:auto;
+        position:relative;
+        }
+         input {
+        width:100%;
+        height: 25px;
+         }
+        </style>
     {% load crispy_forms_tags %}
-
+    {% include 'messages.html'%}
   </head>
   <body>
-    <form class="" action="" method="post">{% csrf_token %}
+    <form class="mt-5" style="float:center" method="post">{% csrf_token %}
       {{form | crispy }}
-      <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
+      <button type="submit" class="btn btn-success btn-block btn-lg" style="float:right" >Sign me in</button>
 
     </form>
   </body>
